@@ -1,0 +1,42 @@
+SQL 
+
+To exit terminal
+	
+	\q
+
+To get all db 
+
+	\l
+
+To get all tables in db 
+
+	\dt
+
+To enter into a db
+
+	dt persons
+
+To delete a table form db
+
+	drop table person
+
+To enter into db
+	
+	\c test
+
+Create table 
+
+	create table students(id bigserial not null primary key , name varchar(25),age int, place varchar(50));
+
+
+Update with foreign key 
+	brototype=# update students set domain=languages.id from languages where students.name in ('ajana','amal','razak','rahees','sameel') and languages.domain='flutter';
+UPDATE 4
+
+Delete a column from a table 
+
+	brototype=# ALTER TABLE students DROP COLUMN domain;
+ALTER TABLE
+
+
+
