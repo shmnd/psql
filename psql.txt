@@ -37,7 +37,3 @@ Delete a column from a table
 
 	brototype=# ALTER TABLE students DROP COLUMN domain;
 ALTER TABLE
-
-
-
-kmmm
