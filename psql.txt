@@ -317,3 +317,92 @@ normal forms
 contstraints 
 merit and demerit of db 
 why db 
+
+
+there is 3 kind loop in psql 
+
+1.FOR ... IN ... LOOP:
+
+
+		DO $$ 
+		DECLARE
+			emp_record record;
+		BEGIN
+			FOR emp_record IN SELECT * FROM employee WHERE id BETWEEN 4 AND 10 LOOP
+				-- Do something with the fetched data
+				RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+			END LOOP;
+		END $$;
+
+					output:-
+
+					NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+					NOTICE:  ID: 5, Name: sanket, Salary: 100000
+					NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+					NOTICE:  ID: 7, Name: rohit, Salary: 75000
+
+
+
+
+2.WHILE LOOP:
+
+
+			DO $$ 
+			DECLARE
+				emp_id INT := 4;
+				emp_record record;
+			BEGIN
+				WHILE emp_id <= 10 LOOP
+					-- Fetch data into variables
+					SELECT * INTO emp_record FROM employee WHERE id = emp_id;
+
+					-- Do something with the fetched data
+					RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+
+					-- Increment the counter
+					emp_id := emp_id + 1;
+				END LOOP;
+			END $$;
+
+						output:-
+
+						NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+						NOTICE:  ID: 5, Name: sanket, Salary: 100000
+						NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+						NOTICE:  ID: 7, Name: rohit, Salary: 75000
+						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+
+
+3.Additionally, it's worth mentioning that the LOOP construct itself can be used as an infinite loop, and you can use EXIT statements to break out of the loop based on certain conditions.Example of an infinite loop with LOOP and EXIT:
+
+
+			DO $$ 
+			DECLARE
+				emp_id INT := 4;
+				emp_record record;
+			BEGIN
+				LOOP
+					-- Fetch data into variables
+					SELECT * INTO emp_record FROM employee WHERE id = emp_id;
+
+					-- Exit the loop if the employee doesn't exist
+					IF NOT FOUND THEN
+						EXIT;
+					END IF;
+
+					-- Do something with the fetched data
+					RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+
+					-- Increment the counter
+					emp_id := emp_id + 1;
+				END LOOP;
+			END $$;
+
+
+						NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+						NOTICE:  ID: 5, Name: sanket, Salary: 100000
+						NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+						NOTICE:  ID: 7, Name: rohit, Salary: 75000
+
