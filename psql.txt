@@ -40,7 +40,60 @@ ALTER TABLE
 
 
 
+concat(join 2 columns)
+	select concat(fname,' ',lname) as fullname from worker;
+    fullname
+-----------------
+ monika arora
+ niharika arora
+ vishal singhal
+ amithab singh
+ vivek bhati
+ vipul diwan
+ sathish kumar
+ deepika chauhan
+(8 rows)
 
+
+ascending and descending
+
+
+	select * from worker order by fname asc;
+
+
+
+rite an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and DEPARTMENT Descending.
+
+
+	select * from worker order by fname asc, department des;
+
+
+to find customers name end with a (LIKE OPERATOR)
+	
+	select fname from worker where fname like '%a';
+  fname
+----------
+ monika
+ niharika
+ deepika
+		(it will give fname ending with 'a')
+
+to find customers name start with v 
+
+	select * from worker where fname like 'v%';
+
+
+ id | fname  |  lname  | salary |   jdate    | department
+----+--------+---------+--------+------------+------------
+  3 | vishal | singhal | 300000 | 2019-06-03 | hr
+  5 | vivek  | bhati   | 500000 | 2019-06-05 | admin
+  6 | vipul  | diwan   | 200000 | 2019-06-14 | account
+
+
+			INSTEAD OF USING 'LIKE' WE ALSO CAN USER 'ILIKE'
+				
+				ILIKE operatoter helps avode case sensitive that means it show capital and small letters as output 
+LIKE operator is case sensitive 
 
 
 
