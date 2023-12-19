@@ -229,10 +229,71 @@ Write an SQL query to show the last record from a table
 		select * from employee where id%2=1;
 
 
+	How do you copy all rows of a table using query 
+		
+		insert into test select * from employee;
+
+		assignments=# select * from test;
+		id |     fname     | lname  | department | salary
+		----+---------------+--------+------------+--------
+		1 | karan         | mehta  | hr         | 300000
+		2 | rohit         | sharma | admin      |  75000
+		3 | ankush        | rajput | account    |  60000
+		4 | priyadarshini | sharma | hr         | 500000
+		5 | sanket        | gupta  | developer  | 100000
+		6 | shruthi       | varyar | admin      |  80000
+		7 | rohit         | sharma | admin      |  75000
+		(7 rows)
+
+
+		assignments=# select * from employee;
+		id |     fname     | lname  | department | salary
+		----+---------------+--------+------------+--------
+		1 | karan         | mehta  | hr         | 300000
+		2 | rohit         | sharma | admin      |  75000
+		3 | ankush        | rajput | account    |  60000
+		4 | priyadarshini | sharma | hr         | 500000
+		5 | sanket        | gupta  | developer  | 100000
+		6 | shruthi       | varyar | admin      |  80000
+		7 | rohit         | sharma | admin      |  75000
 
 
 
-				
+Write a query to retrieve the list of employees working in the same department ?
+
+
+	SELECT 
+	e1.id AS emp1_id, 
+	e1.fname AS emp1_fname, 
+	e1.lname AS emp1_lname, 
+	e1.department AS emp1_department,
+	e2.id AS emp2_id,
+	e2.fname AS emp2_fname,
+	e2.lname AS emp2_lname,
+	e2.department AS emp2_department
+	FROM 
+	employee e1
+	JOIN 
+	employee e2 ON e1.department = e2.department AND e1.id < e2.id;
+
+
+
+	Write a query to retrieve the last 3 records from the EmployeeInfo table ?
+
+
+		 select * from employee order by id desc limit 3;
+				id |  fname  | lname  | department | salary
+				----+---------+--------+------------+--------
+				7 | rohit   | sharma | admin      |  75000
+				6 | shruthi | varyar | admin      |  80000
+				5 | sanket  | gupta  | developer  | 100000
+				(3 rows)
+						
+
+	Write a query to fetch details of an employee whose EmpLname ends with an alphabet ‘A’ and contains five alphabets ?
+		SELECT * FROM employee WHERE LENGTH(fname)=5 AND LOWER(RIGHT(fname,1))='a';
+
+
 
 
 
