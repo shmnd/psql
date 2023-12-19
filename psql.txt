@@ -42,16 +42,16 @@ ALTER TABLE
 
 concat(join 2 columns)
 	select concat(fname,' ',lname) as fullname from worker;
-    fullname
------------------
- monika arora
- niharika arora
- vishal singhal
- amithab singh
- vivek bhati
- vipul diwan
- sathish kumar
- deepika chauhan
+				fullname
+			-----------------
+			monika arora
+			niharika arora
+			vishal singhal
+			amithab singh
+			vivek bhati
+			vipul diwan
+			sathish kumar
+			deepika chauhan
 (8 rows)
 
 
@@ -83,19 +83,97 @@ to find customers name start with v
 	select * from worker where fname like 'v%';
 
 
- id | fname  |  lname  | salary |   jdate    | department
-----+--------+---------+--------+------------+------------
-  3 | vishal | singhal | 300000 | 2019-06-03 | hr
-  5 | vivek  | bhati   | 500000 | 2019-06-05 | admin
-  6 | vipul  | diwan   | 200000 | 2019-06-14 | account
+			id | fname  |  lname  | salary |   jdate    | department
+			----+--------+---------+--------+------------+------------
+			3 | vishal | singhal | 300000 | 2019-06-03 | hr
+			5 | vivek  | bhati   | 500000 | 2019-06-05 | admin
+			6 | vipul  | diwan   | 200000 | 2019-06-14 | account
 
 
 			INSTEAD OF USING 'LIKE' WE ALSO CAN USER 'ILIKE'
 				
 				ILIKE operatoter helps avode case sensitive that means it show capital and small letters as output 
-LIKE operator is case sensitive 
+			LIKE operator is case sensitive 
 
 
+
+Write an SQL query to print details of the Workers whose FIRST_NAME contains ‘a’
+
+	select * from worker where fname ilike '%a%';
+
+			id |  fname   |  lname  | salary |   jdate    | department
+			----+----------+---------+--------+------------+------------
+			1 | monika   | arora   | 100000 | 2019-06-08 | hr
+			2 | niharika | arora   |  80000 | 2019-06-08 | admin
+			3 | vishal   | singhal | 300000 | 2019-06-03 | hr
+			4 | amithab  | singh   | 500000 | 2019-06-04 | admin
+			7 | sathish  | kumar   |  75000 | 2019-06-14 | account
+			8 | deepika  | chauhan |  90000 | 2019-06-21 | admin
+
+
+
+   Write an SQL query to fetch worker names with salaries >= 50000 and <= 100000.
+
+		select * from worker where salary >= 50000 and salary <= 100000;
+
+		   id |  fname   |  lname  | salary |   jdate    | department
+		  ----+----------+---------+--------+------------+------------
+			1 | monika   | arora   | 100000 | 2019-06-08 | hr
+			2 | niharika | arora   |  80000 | 2019-06-08 | admin
+			7 | sathish  | kumar   |  75000 | 2019-06-14 | account
+			8 | deepika  | chauhan |  90000 | 2019-06-21 | admin
+
+
+
+Write an SQL query to fetch the first 50% records from a table.
+
+	SELECT * FROM worker LIMIT (SELECT COUNT(*)/2 FROM WORKER);
+
+
+			id |  fname   |  lname  | salary |   jdate    | department
+			----+----------+---------+--------+------------+------------
+			1 | monika   | arora   | 100000 | 2019-06-08 | hr
+			2 | niharika | arora   |  80000 | 2019-06-08 | admin
+			3 | vishal   | singhal | 300000 | 2019-06-03 | hr
+			4 | amithab  | singh   | 500000 | 2019-06-04 | admin
+
+
+
+Write an SQL query to show the last record from a table
+
+	SELECT * FROM worker ORDER BY id DESC LIMIT 1;
+
+		id |  fname  |  lname  | salary |   jdate    | department
+		----+---------+---------+--------+------------+------------
+		8 | deepika | chauhan |  90000 | 2019-06-21 | admin
+
+
+ Swapping the Values of first name and last name Columns in a worker table
+
+	UPDATE worker SET fname = CASE WHEN fname IS NOT NULL THEN lname ELSE NULL END, lname= CASE WHEN lname IS NOT  NULL THEN fname ELSE NULL END;
+
+
+
+	///////////////////////////////////////////////////     	TASK 2         ////////////////////////////////////////////////////////
+
+
+
+
+	insert into employee(fname,lname,department,salary) values ('karan','mehta','hr',300000),('rohit','sharma','admin',75000),('ankush','rajput','account',60000),('priyadarshini','sharma','hr',500000),('sanket','gupta','developer',100000),('shruthi','varyar','admin',80000),('rohit','sharma','admin',75000);
+
+	
+			INSERT 0 7
+			assignments=# select * from employee;
+			id |     fname     | lname  | department | salary
+			----+---------------+--------+------------+--------
+			1 | karan         | mehta  | hr         | 300000
+			2 | rohit         | sharma | admin      |  75000
+			3 | ankush        | rajput | account    |  60000
+			4 | priyadarshini | sharma | hr         | 500000
+			5 | sanket        | gupta  | developer  | 100000
+			6 | shruthi       | varyar | admin      |  80000
+			7 | rohit         | sharma | admin      |  75000
+				
 
 
 
