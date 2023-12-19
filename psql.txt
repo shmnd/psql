@@ -312,3 +312,8 @@ continue
 clustered index
 non cluster index
 stored procedure
+normalisation
+normal forms 
+contstraints 
+merit and demerit of db 
+why db 
