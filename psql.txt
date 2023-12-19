@@ -71,11 +71,11 @@ rite an SQL query to print all Worker details from the Worker table order by FIR
 to find customers name end with a (LIKE OPERATOR)
 	
 	select fname from worker where fname like '%a';
-  fname
-----------
- monika
- niharika
- deepika
+			fname
+			----------
+			monika
+			niharika
+			deepika
 		(it will give fname ending with 'a')
 
 to find customers name start with v 
@@ -161,7 +161,7 @@ Write an SQL query to show the last record from a table
 
 	insert into employee(fname,lname,department,salary) values ('karan','mehta','hr',300000),('rohit','sharma','admin',75000),('ankush','rajput','account',60000),('priyadarshini','sharma','hr',500000),('sanket','gupta','developer',100000),('shruthi','varyar','admin',80000),('rohit','sharma','admin',75000);
 
-	
+
 			INSERT 0 7
 			assignments=# select * from employee;
 			id |     fname     | lname  | department | salary
@@ -173,12 +173,71 @@ Write an SQL query to show the last record from a table
 			5 | sanket        | gupta  | developer  | 100000
 			6 | shruthi       | varyar | admin      |  80000
 			7 | rohit         | sharma | admin      |  75000
+
+
+
+	Write a query to find the three highest salary from the EmployeeInfo table ?
+
+		select * from employee order by salary desc limit 3;
+
+				id |     fname     | lname  | department | salary
+			----+---------------+--------+------------+--------
+				4 | priyadarshini | sharma | hr         | 500000
+				1 | karan         | mehta  | hr         | 300000
+				5 | sanket        | gupta  | developer  | 100000
+
+
+
+	Write a query to find the third highest salary from the EmployeeInfo table ?
+
+		select * from employee order by salary desc limit 1 offset 2;
+
+			 id | fname  | lname | department | salary
+			----+--------+-------+------------+--------
+			  5 | sanket | gupta | developer  | 100000
+
+
+	Write a query to find the third highest salary from the table without using TOP/LIMIT keyword ?
+
+			SELECT MAX(salary) AS third_highest_salary
+			FROM EmployeeInfo
+			WHERE salary NOT IN (
+				SELECT DISTINCT salary
+				FROM EmployeeInfo
+				ORDER BY salary DESC
+				LIMIT 2
+);
+
+
+	Write a query to find the duplicate row in a table 
+
+		select department ,count(*) from employee group by department having count(*) > 1;
+
+
+
+	Write a query to display the first and last record from the EmployeeInfo table ?
+	
+		select * from employee order by id limit 1;
+
+		select * from employee order by id desc limit 1;
+
+
+	Write a query to calculate the even and odd records from a table ?
+
+		select * from employee where id%2=0;
+
+		select * from employee where id%2=1;
+
+
+
+
+
 				
 
 
 
 
-advanced topic 
+///////////////////////////////////////////////////////               advanced topic                      //////////////////////////////////////////////////////////////////////
 min,max,avg
 primary key relationship foreign key
 join to get count of each car maker
