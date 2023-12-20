@@ -39,6 +39,9 @@ Delete a column from a table
 ALTER TABLE
 
 
+                ///////////////////////////////////////////    TASK 1     ////////////////////////////////////////////////////
+
+
 
 concat(join 2 columns)
 	select concat(fname,' ',lname) as fullname from worker;
@@ -154,7 +157,7 @@ Write an SQL query to show the last record from a table
 
 
 
-	///////////////////////////////////////////////////     	TASK 2         ////////////////////////////////////////////////////////
+	                    ///////////////////////////////////////////////////     	TASK 2         ////////////////////////////////////////////////////////
 
 
 
@@ -298,7 +301,10 @@ Write a query to retrieve the list of employees working in the same department ?
 
 
 
-///////////////////////////////////////////////////////               advanced topic                      //////////////////////////////////////////////////////////////////////
+         ///////////////////////////////////////////////////////        advanced topic         //////////////////////////////////////////////////////////////////////
+
+
+		   
 min,max,avg
 primary key relationship foreign key
 join to get count of each car maker
@@ -318,91 +324,234 @@ contstraints
 merit and demerit of db 
 why db 
 
-
-there is 3 kind loop in psql 
-
-1.FOR ... IN ... LOOP:
+                          /////////////////////////////////////////////     LOOPS      ////////////////////////////////////////////////////
 
 
-		DO $$ 
-		DECLARE
-			emp_record record;
-		BEGIN
-			FOR emp_record IN SELECT * FROM employee WHERE id BETWEEN 4 AND 10 LOOP
-				-- Do something with the fetched data
-				RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
-			END LOOP;
-		END $$;
+		There is 3 kind loop in psql :-
 
-					output:-
+				1.FOR ... IN ... LOOP:
 
-					NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
-					NOTICE:  ID: 5, Name: sanket, Salary: 100000
-					NOTICE:  ID: 6, Name: shruthi, Salary: 80000
-					NOTICE:  ID: 7, Name: rohit, Salary: 75000
+
+						DO $$ 
+						DECLARE
+							emp_record record;
+						BEGIN
+							FOR emp_record IN SELECT * FROM employee WHERE id BETWEEN 4 AND 10 LOOP
+								-- Do something with the fetched data
+X								RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+							END LOOP;
+						END $$;
 
 
 
+									output:-
 
-2.WHILE LOOP:
-
-
-			DO $$ 
-			DECLARE
-				emp_id INT := 4;
-				emp_record record;
-			BEGIN
-				WHILE emp_id <= 10 LOOP
-					-- Fetch data into variables
-					SELECT * INTO emp_record FROM employee WHERE id = emp_id;
-
-					-- Do something with the fetched data
-					RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
-
-					-- Increment the counter
-					emp_id := emp_id + 1;
-				END LOOP;
-			END $$;
-
-						output:-
-
-						NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
-						NOTICE:  ID: 5, Name: sanket, Salary: 100000
-						NOTICE:  ID: 6, Name: shruthi, Salary: 80000
-						NOTICE:  ID: 7, Name: rohit, Salary: 75000
-						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
-						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
-						NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+									NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+									NOTICE:  ID: 5, Name: sanket, Salary: 100000
+									NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+									NOTICE:  ID: 7, Name: rohit, Salary: 75000
 
 
-3.Additionally, it's worth mentioning that the LOOP construct itself can be used as an infinite loop, and you can use EXIT statements to break out of the loop based on certain conditions.Example of an infinite loop with LOOP and EXIT:
 
 
-			DO $$ 
-			DECLARE
-				emp_id INT := 4;
-				emp_record record;
-			BEGIN
-				LOOP
-					-- Fetch data into variables
-					SELECT * INTO emp_record FROM employee WHERE id = emp_id;
-
-					-- Exit the loop if the employee doesn't exist
-					IF NOT FOUND THEN
-						EXIT;
-					END IF;
-
-					-- Do something with the fetched data
-					RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
-
-					-- Increment the counter
-					emp_id := emp_id + 1;
-				END LOOP;
-			END $$;
+				2.WHILE LOOP:
 
 
-						NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
-						NOTICE:  ID: 5, Name: sanket, Salary: 100000
-						NOTICE:  ID: 6, Name: shruthi, Salary: 80000
-						NOTICE:  ID: 7, Name: rohit, Salary: 75000
+							DO $$ 
+							DECLARE
+								emp_id INT := 4;
+								emp_record record;
+							BEGIN
+								WHILE emp_id <= 10 LOOP
+									-- Fetch data into variables
+									SELECT * INTO emp_record FROM employee WHERE id = emp_id;
+
+									-- Do something with the fetched data
+									RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+
+									-- Increment the counter
+									emp_id := emp_id + 1;
+								END LOOP;
+							END $$;
+
+
+											output:-
+
+											NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+											NOTICE:  ID: 5, Name: sanket, Salary: 100000
+											NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+											NOTICE:  ID: 7, Name: rohit, Salary: 75000
+											NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+											NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+											NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
+
+
+				3.Additionally, it's worth mentioning that the LOOP construct itself can be used as an infinite loop, and you can use EXIT statements to break out of the loop based on certain conditions.Example of an infinite loop with LOOP and EXIT:
+
+
+							DO $$ 
+							DECLARE
+								emp_id INT := 4;
+								emp_record record;
+							BEGIN
+								LOOP
+									-- Fetch data into variables
+									SELECT * INTO emp_record FROM employee WHERE id = emp_id;
+
+									-- Exit the loop if the employee doesn't exist
+									IF NOT FOUND THEN
+										EXIT;
+									END IF;
+
+									-- Do something with the fetched data
+									RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+
+									-- Increment the counter
+									emp_id := emp_id + 1;
+								END LOOP;
+							END $$;
+
+
+											output:-
+
+
+											NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+											NOTICE:  ID: 5, Name: sanket, Salary: 100000
+											NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+											NOTICE:  ID: 7, Name: rohit, Salary: 75000
+
+
+
+Copy a Table into another table
+	
+	insert into test select * from employee;
+
+
+			assignments=# select * from test;
+			id |     fname     | lname  | department | salary
+			----+---------------+--------+------------+--------
+			1 | karan         | mehta  | hr         | 330000
+			2 | rohit         | sharma | admin      |  82500
+			3 | ankush        | rajput | account    |  66000
+			4 | priyadarshini | sharma | hr         | 550000
+			5 | sanket        | gupta  | developer  | 110000
+			6 | shruthi       | varyar | admin      |  88000
+			7 | rohit         | sharma | admin      |  82500
+
+
+AVERAGE (AVG)
+
+			assignments=# select avg(salary) as average_wage from aim;
+				average_wage
+			---------------------
+			205700.000000000000
+			(1 row)
+
+
+MINIMUM (MIN)
+
+			assignments=# select min(salary) as minimum from employee;
+			minimum
+			---------
+			66000
+			(1 row)
+
+
+MAXIMUM (MAX)
+
+			assignments=# select max(salary) as minimum from employee;
+			minimum
+			---------
+			550000
+			(1 row)
+
+
+VIEW
+
+	In SQL, a view is a virtual table that contains data from one or more tables. It contains a set of predefined SQL queries to fetch data from the database
+
+	CREATE VIEW SUMMERY_VIEW AS SELECT MIN(salary) as minsalary , MAX(salary) as maxsalary, AVG(salary) as avgsalary from aim;
+
+		CREATE VIEW
+
+		 select * from summery_view;	
+ 
+				minsalary | maxsalary |      avgsalary
+				-----------+-----------+---------------------
+					72600 |    605000 | 205700.000000000000
+				(1 row)
+
+
+
+The SQL CASE Expression
+
+
+		The CASE expression goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.
+		If there is no ELSE part and no conditions are true, it returns NULL.
+
+
+				assignments=# SELECT fname,salary,department,
+				assignments-# CASE
+				assignments-#   WHEN salary >=95000 THEN 'high incomed person'
+				assignments-#   WHEN department = 'admin' THEN 'the admins'
+				assignments-#   ELSE 'No high income and admins'
+				assignments-# END AS toppers
+				assignments-# FROM employee;
+
+
+
+							fname     | salary | department |          toppers
+						---------------+--------+------------+---------------------------
+						karan         | 330000 | hr         | high incomed person
+						rohit         |  82500 | admin      | the admins
+						ankush        |  66000 | account    | No high income and admins
+						priyadarshini | 550000 | hr         | high incomed person
+						sanket        | 110000 | developer  | high incomed person
+						shruthi       |  88000 | admin      | the admins
+						rohit         |  82500 | admin      | the admins
+
+
+
+EXIT 
+		In SQL, the EXIT statement is used to exit a loop conditionally. This means that when a specific condition is met, the loop will stop executing, and the control will be passed to the next line of code after the loop. 
+		The EXIT statement can also be used to exit the current iteration of a loop, either conditionally or unconditionally. It transfers control to the end of either the current loop or an enclosing labeled loop. 
+		The EXIT statement must be inside a LOOP statement. When the EXIT statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop. 
+		The EXIT statement is used for terminating the execution, especially while working with loops and nested loops
+
+
+				DO $$ 
+				DECLARE
+					emp_id INT := 4;
+					emp_record record;
+				BEGIN
+					LOOP
+						-- Fetch data into variables
+						SELECT * INTO emp_record FROM employee WHERE id = emp_id;
+
+						-- Exit the loop if the employee doesn't exist
+						IF NOT FOUND THEN
+							EXIT;
+						END IF;
+
+						-- Do something with the fetched data
+						RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fname, emp_record.salary;
+
+						-- Increment the counter
+						emp_id := emp_id + 1;
+					END LOOP;
+				END $$;
+
+
+								output:-
+
+
+								NOTICE:  ID: 4, Name: priyadarshini, Salary: 500000
+								NOTICE:  ID: 5, Name: sanket, Salary: 100000
+								NOTICE:  ID: 6, Name: shruthi, Salary: 80000
+								NOTICE:  ID: 7, Name: rohit, Salary: 75000
+
+'CONTINUE' Statement
+
+
+		When the SQL engine encounters a 'CONTINUE' statement, it ends the current loop iteration and immediately jumps to the beginning of the next iteration. Important to note, the 'CONTINUE' statement is only valid for use inside loops.
 
