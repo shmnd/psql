@@ -30,7 +30,7 @@ Create table
 
 
 Update with foreign key 
-	brototype=# update students set domain=languages.id from languages where students.name in ('ajana','amal','razak','rahees','sameel') and languages.domain='flutter';
+	update students set domain=languages.id from languages where students.name in ('ajana','amal','razak','rahees','sameel') and languages.domain='flutter';
 UPDATE 4
 
 Delete a column from a table 
@@ -162,7 +162,9 @@ Write an SQL query to show the last record from a table
 
 
 
-	insert into employee(fname,lname,department,salary) values ('karan','mehta','hr',300000),('rohit','sharma','admin',75000),('ankush','rajput','account',60000),('priyadarshini','sharma','hr',500000),('sanket','gupta','developer',100000),('shruthi','varyar','admin',80000),('rohit','sharma','admin',75000);
+	insert into employee(fname,lname,department,salary) values ('karan','mehta','hr',300000),('rohit','sharma','admin',75000),
+	('ankush','rajput','account',60000),('priyadarshini','sharma','hr',500000),('sanket','gupta','developer',100000),
+	('shruthi','varyar','admin',80000),('rohit','sharma','admin',75000);
 
 
 			INSERT 0 7
@@ -386,7 +388,8 @@ X								RAISE NOTICE 'ID: %, Name: %, Salary: %', emp_record.id, emp_record.fna
 											NOTICE:  ID: <NULL>, Name: <NULL>, Salary: <NULL>
 
 
-				3.Additionally, it's worth mentioning that the LOOP construct itself can be used as an infinite loop, and you can use EXIT statements to break out of the loop based on certain conditions.Example of an infinite loop with LOOP and EXIT:
+				3.Additionally, it's worth mentioning that the LOOP construct itself can be used as an infinite loop, 
+				and you can use EXIT statements to break out of the loop based on certain conditions.Example of an infinite loop with LOOP and EXIT:
 
 
 							DO $$ 
@@ -470,23 +473,24 @@ VIEW
 
 	In SQL, a view is a virtual table that contains data from one or more tables. It contains a set of predefined SQL queries to fetch data from the database
 
-	CREATE VIEW SUMMERY_VIEW AS SELECT MIN(salary) as minsalary , MAX(salary) as maxsalary, AVG(salary) as avgsalary from aim;
+			CREATE VIEW SUMMERY_VIEW AS SELECT MIN(salary) as minsalary , MAX(salary) as maxsalary, AVG(salary) as avgsalary from aim;
 
-		CREATE VIEW
+				CREATE VIEW
 
-		 select * from summery_view;	
- 
-				minsalary | maxsalary |      avgsalary
-				-----------+-----------+---------------------
-					72600 |    605000 | 205700.000000000000
-				(1 row)
+						select * from summery_view;	
+				
+								minsalary | maxsalary |      avgsalary
+								-----------+-----------+---------------------
+									72600 |    605000 | 205700.000000000000
+								(1 row)
 
 
 
 The SQL CASE Expression
 
 
-		The CASE expression goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.
+		The CASE expression goes through conditions and returns a value when the first condition is met (like an if-then-else statement). 
+		So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.
 		If there is no ELSE part and no conditions are true, it returns NULL.
 
 
@@ -512,10 +516,16 @@ The SQL CASE Expression
 
 
 
-EXIT 
-		In SQL, the EXIT statement is used to exit a loop conditionally. This means that when a specific condition is met, the loop will stop executing, and the control will be passed to the next line of code after the loop. 
-		The EXIT statement can also be used to exit the current iteration of a loop, either conditionally or unconditionally. It transfers control to the end of either the current loop or an enclosing labeled loop. 
-		The EXIT statement must be inside a LOOP statement. When the EXIT statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop. 
+	EXIT 
+
+
+		In SQL, the  statement is used to exit a loop conditionally.
+		This means that when a specific condition is met, the loop will stop executing, and the control will be passed to the next line of code after the loop. 
+		The EXIT statement can also be used to exit the current iteration of a loop, either conditionally or unconditionally. 
+		It transfers control to the end of either the current loop or an enclosing labeled loop. 
+		The EXIT statement must be inside a LOOP statement.
+		When the EXIT statement is encountered inside a loop, 
+		the loop is immediately terminated and the program control resumes at the next statement following the loop. 
 		The EXIT statement is used for terminating the execution, especially while working with loops and nested loops
 
 
@@ -553,26 +563,241 @@ EXIT
 'CONTINUE' Statement
 
 
-		When the SQL engine encounters a 'CONTINUE' statement, it ends the current loop iteration and immediately jumps to the beginning of the next iteration. Important to note, the 'CONTINUE' statement is only valid for use inside loops.
+		When the SQL engine encounters a 'CONTINUE' statement, it ends the current loop iteration and immediately jumps to the beginning of the next iteration.
+		 Important to note, the 'CONTINUE' statement is only valid for use inside loops.
+
+				Just a example to understand the use of CONTINUE 
+
+								DO $$
+								DECLARE
+									i int := 1;
+									n record;
+								BEGIN
+									LOOP
+										SELECT * INTO n FROM employee;
+
+										IF i % 2 = 1 THEN
+											CONTINUE;
+										ELSE
+											RAISE NOTICE 'id:%, name:%', n.id, n.fname;
+										END IF;
+
+										i := i + 1;
+
+										-- Exit the loop if you want to limit the number of iterations
+										IF i > 10 THEN
+											EXIT;
+										END IF;
+									END LOOP;
+								END $$;
+
+
+Stored Procedure
+
+
+		What is a Stored Procedure?
+
+				A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again.
+
+				So if you have an SQL query that you write over and over again, save it as a stored procedure, and then just call it to execute it.
+
+				You can also pass parameters to a stored procedure, so that the stored procedure can act based on the parameter value(s) that is passed.
+
+
+					Stored Procedure Syntax
+
+							CREATE PROCEDURE procedure_name
+							AS
+							sql_statement
+							GO;
+							Execute a Stored Procedure
+							EXEC procedure_name;
+
+
+different types of constraints
+
+			
+		In relational databases, constraints are rules or conditions applied to columns or tables to maintain the integrity, accuracy, 
+		and consistency of the data. Here are some common types of constraints:
+
+				Primary Key Constraint:
+
+						Ensures that each row in a table can be uniquely identified by one or more columns. It must contain unique values and cannot have NULL values.
+						Example:
+
+						sql
+						Copy code
+						CREATE TABLE Employees (
+							EmployeeID INT PRIMARY KEY,
+							FirstName VARCHAR(50),
+							LastName VARCHAR(50)
+						);
+
+
+				Unique Constraint:
+
+						Ensures that values in a column (or a group of columns) are unique across all rows in the table. Unlike a primary key, 
+						a unique constraint can allow NULL values.
+						Example:
+
+						sql
+						Copy code
+						CREATE TABLE Students (
+							StudentID INT,
+							StudentCode VARCHAR(10) UNIQUE,
+							FirstName VARCHAR(50),
+							LastName VARCHAR(50)
+						);
+
+
+				Foreign Key Constraint:
+
+					Establishes a link between two tables by ensuring that values in a column (foreign key) correspond to the values in a referenced column (primary key) in another table.
+
+						Example:
+
+								sql
+								Copy code
+								CREATE TABLE Orders (
+									OrderID INT PRIMARY KEY,
+									ProductID INT,
+									Quantity INT,
+									FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+								);
+
+
+				Check Constraint:
+
+						Specifies a condition that must be true for each row in a table. It is used to enforce data integrity rules.
+						Example:
+
+						sql
+						Copy code
+						CREATE TABLE Employees (
+							EmployeeID INT,
+							Salary DECIMAL(10, 2) CHECK (Salary >= 0),
+							Department VARCHAR(50)
+						);
+
+
+				Default Constraint:
+
+						Specifies a default value for a column, which is used if no explicit value is provided during an INSERT operation.
+						Example:
+
+						sql
+						Copy code
+						CREATE TABLE Products (
+							ProductID INT PRIMARY KEY,
+							ProductName VARCHAR(50),
+							Price DECIMAL(10, 2) DEFAULT 0.00
+						);
+
+
+				Not Null Constraint:
+
+						Ensures that a column does not contain NULL values.
+						Example:
+
+						sql
+						Copy code
+						CREATE TABLE Customers (
+							CustomerID INT PRIMARY KEY,
+							FirstName VARCHAR(50) NOT NULL,
+							LastName VARCHAR(50) NOT NULL
+						);
 
 
 
+Normalization
 
 
+		Normalization is a database design technique that organizes data in a relational database to reduce redundancy and dependency. 
+		The primary goals of normalization are to eliminate data anomalies, improve data integrity, and simplify data management. 
+		It involves breaking down large, complex tables into smaller, simpler ones while maintaining relationships between them. 
+		The process typically involves a series of steps known as normal forms.
+		Normalization helps in maintaining data consistency, reducing redundancy, and simplifying data maintenance. 
+		However, it's important to note that normalization can lead to more complex query structures, 
+		and there's a trade-off between normalization and performance, especially in read-heavy databases. 
+		The level of normalization depends on the specific needs and requirements of the application.
 
-What is a Stored Procedure?
+		Normalization is a crucial concept in relational database design, 
+		and understanding it is fundamental for creating efficient and maintainable database structures.
 
 
-		A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again.
+NORMAL FORMS
 
-		So if you have an SQL query that you write over and over again, save it as a stored procedure, and then just call it to execute it.
 
-		You can also pass parameters to a stored procedure, so that the stored procedure can act based on the parameter value(s) that is passed.
+		Certainly! I'll provide a brief overview of the first five normal forms (1NF, 2NF, 3NF, BCNF, and 4NF) along with their key concepts:
 
-		Stored Procedure Syntax
-		CREATE PROCEDURE procedure_name
-		AS
-		sql_statement
-		GO;
-		Execute a Stored Procedure
-		EXEC procedure_name;
+
+				First Normal Form (1NF):
+
+						Key Concept: Eliminate duplicate columns from the same table and ensure that each column contains atomic (indivisible) values.
+
+						Example: 
+						If you have a table with a column for "Address" containing "City, State," it violates 1NF. To bring it into 1NF, split the address into separate "City" and "State" columns.
+
+
+				Second Normal Form (2NF):
+
+						Key Concept: 
+						Meet the requirements of 1NF, and ensure that all non-key columns are fully functionally dependent on the entire primary key.
+						Example: If you have a composite primary key (e.g., {StudentID, CourseID}), ensure that non-key columns are related to the entire key, not just part of it.
+
+
+				Third Normal Form (3NF):
+
+						Key Concept: 
+						Meet the requirements of 2NF, and eliminate transitive dependencies by removing columns that depend on non-key columns.
+						Example: If you have a table with columns {EmployeeID, Department, Supervisor}, and "Supervisor" depends on "Department," move "Supervisor" to a separate table.
+
+
+				Boyce-Codd Normal Form (BCNF):
+
+						Key Concept:
+						 Meet the requirements of 3NF, and ensure that every determinant (column on which another column depends) is a superkey.
+						Example: If a table has a non-trivial functional dependency A → B, where A is not a superkey, it violates BCNF.
+
+
+				Fourth Normal Form (4NF):
+
+						Key Concept: 
+						Meet the requirements of BCNF, and address multi-valued dependencies by separating them into new tables.
+						Example: If a table has columns {StudentID, Course, Instructor}, and both {StudentID, Course} and {Course, Instructor} are multi-valued dependencies, split them into separate tables.
+
+
+		It's important to note that not all databases require normalization up to the fifth normal form. 
+		The level of normalization depends on factors such as the specific use case, performance considerations, and trade-offs between normalization and simplicity of queries. 
+		Additionally, higher normal forms (beyond 3NF) are less commonly used in practice.
+
+
+Clustered Index:
+
+		A clustered index determines the physical order of the data rows in a table. 
+		In other words, the data rows are sorted and stored on the disk based on the key values of the clustered index.
+
+		Each table can have only one clustered index because the actual data rows are stored in the order specified by the clustered index key.
+
+		The choice of a clustered index is crucial because it affects the physical storage and the performance of range queries.
+
+
+				Example syntax for creating a clustered index in SQL Server:
+
+					CREATE CLUSTERED INDEX idx_clustered_example ON your_table(column_name);
+
+
+Non-Clustered Index:
+
+		A non-clustered index doesn't affect the physical order of the data rows. 
+		Instead, it creates a separate structure that includes the indexed columns and a pointer to the corresponding data row.
+
+		Each table can have multiple non-clustered indexes. These indexes are stored separately from the actual data, 
+		allowing for more flexibility in terms of index design.
+
+		Non-clustered indexes are generally faster for read operations but may have a slightly higher overhead for write operations compared to clustered indexes.
+
+
+			Example syntax for creating a non-clustered index in SQL Server:
+
+				CREATE NONCLUSTERED INDEX idx_non_clustered_example ON your_table(column_name);
